@@ -1,7 +1,7 @@
 {
-  "name": "zpg",
+  "name": "psg-movit",
   "version": "1.0.0",
-  "description": "zpg calculator test",
+  "description": "PSG MovieIT calculator interview task",
   "main": "webpack.config.js",
   "dependencies": {},
   "devDependencies": {

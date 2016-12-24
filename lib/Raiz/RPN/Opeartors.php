@@ -70,7 +70,7 @@ class Operators
      * 
      */
 
-    public function hasLowerPrecedence($operator1, $operator2)
+    public function hasLowerPrecedence($operator1, $operator2): bool
     {
         $op1 = $this->operators[$operator1];
         $op2 = $this->operators[$operator2];
@@ -85,7 +85,7 @@ class Operators
      * 
      */
 
-    public function getOperatorsArray()
+    public function getOperatorsArray(): array
     {
         return array_keys($this->operators);
     }

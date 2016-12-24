@@ -1,4 +1,4 @@
-var d = $.Deferred(), request;
+var request;
 
 
 module.exports = {
@@ -6,6 +6,7 @@ module.exports = {
      * 
      */
     calc: function (equation) {
+        var d = $.Deferred();
         if (request) {
             request.abort();
         }

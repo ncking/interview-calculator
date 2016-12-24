@@ -4,6 +4,7 @@
  * 
  */
 
+
 $(function () {
     var 
     $input = $('.calculator-input'), 
