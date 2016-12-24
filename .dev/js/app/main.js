@@ -4,7 +4,6 @@
  * 
  */
 
-
 $(function () {
     var 
     $input = $('.calculator-input'), 
@@ -20,10 +19,4 @@ $(function () {
         });
         return false;
     });
-
 });
-
-
-
-
-

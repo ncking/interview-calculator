@@ -1,24 +1,25 @@
-var debug = false;//process.env.NODE_ENV !== "production";
+var debug = process.env.NODE_ENV == "development";
 var webpack = require('webpack');
 
 /*
  * 
  */
 module.exports = {
+
     context: __dirname,
-    // devtool: debug ? "inline-sourcemap" : null,
+
+    devtool: debug ? "inline-sourcemap" : null,
+
     entry: {
         main: "./js/app/main.js"
     },
 
     resolve: {
-        extensions: ['', '.js', '.ejs']
+        extensions: ['', '.js']
     },
 
     module: {
         loaders: [
-            // .ejs Underscore/Lodash templates
-            {test: /\.ejs$/, loader: 'ejs-loader'}
         ]
     },
     output: {
