@@ -29,7 +29,7 @@ class Calculator
      * 
      */
 
-    public function calcExpression(string $str = '')
+    public function calcExpression(string $str = ''): int
     {
         $expression = new ExpressionString($str, $this->rpnOperators);
         return $expression->calculate();
@@ -38,7 +38,7 @@ class Calculator
      * 
      */
 
-    public function setOperator(string $operator, array $options = [], callable $callback = null)
+    public function setOperator(string $operator, array $options = [], callable $callback = null): Calculator
     {
         $this->rpnOperators->setOperator($operator, $options, $callback);
         return $this;
