@@ -4,8 +4,6 @@
 You can set the operator symbol, precedence, & operand calculation.
 
 
-Written as a interview test for PSG  - MoveIT 
-
 
 
 [RPN]: <https://en.wikipedia.org/wiki/Reverse_Polish_notation>
