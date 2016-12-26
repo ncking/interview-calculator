@@ -1,4 +1,4 @@
-# PSG - MoveIT (Zoopla)
+# RPN _ Calculator
 
 [RPN] Calcultor using the [Shunting-yard_algorithm] , with custom operators;
 You can set the operator symbol, precedence, & operand calculation.
