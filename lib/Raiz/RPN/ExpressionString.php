@@ -13,9 +13,9 @@ class ExpressionString extends Expression
      * 
      */
 
-    public function __construct(string $expressionString, Operators $operators)
+    public function __construct(string $expressionString, array $operators)
     {
-        $this->formattedString = $this->formatString($expressionString, $operators->getOperatorsArray());
+        $this->formattedString = $this->formatString($expressionString, array_keys($operators));
         $tokens = $this->formattedString ? \explode(' ', $this->formattedString) : [];
         parent::__construct($tokens, $operators);
     }
@@ -23,7 +23,7 @@ class ExpressionString extends Expression
      * 
      */
 
-    public function getFormattedString()
+    public function getFormattedString(): string
     {
         return $this->formattedString;
     }
@@ -34,7 +34,7 @@ class ExpressionString extends Expression
      * due to escaping of operators, brackets & decimal operands ...
      */
 
-    private function formatString(string $expressionString, array $operators)
+    private function formatString(string $expressionString, array $operators): string
     {
         $searches = $operators;
         $searches[] = '(';

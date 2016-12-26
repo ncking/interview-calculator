@@ -7,13 +7,15 @@ namespace Raiz\RPN;
 class Expression
 {
 
-    protected $tokens, $operators;
+    protected $tokens;
+    
+    protected $operators;
 
     /*
      *
      */
 
-    public function __construct(array $tokens, Operators $operators)
+    public function __construct(array $tokens, array $operators)
     {
         $this->tokens = $tokens;
         $this->operators = $operators;
@@ -22,12 +24,13 @@ class Expression
      *
      */
 
-    public function toRPN()
+    public function toRPN(): array
     {
         $stack = new \SplStack();
         $output = new \SplQueue();
 
         foreach ($this->tokens as $token) {
+
 
             switch (true) {
                 /*
@@ -41,14 +44,14 @@ class Expression
                  * If its an operator on top of the stack.
                  * The loop through the stack comparing operators
                  */
-                case $this->operators->isOperator($token):
-                    $opeartor1 = $token;
+                case ($opeartor = $this->getOperator($token)):
+
                     while (
-                    $this->isOperatorTopOfStack($stack) && ($opeartor2 = $stack->top()) && $this->operators->hasLowerPrecedence($opeartor1, $opeartor2)
+                    ($opeartor2 = $this->getOperatorFromTopOfStack($stack)) && $opeartor->hasLowerPrecedence($opeartor2)
                     ) {
                         $output->enqueue($stack->pop());
                     }
-                    $stack->push($opeartor1);
+                    $stack->push($token);
                     break;
 
                 case '(' == $token :
@@ -71,7 +74,7 @@ class Expression
             }
         }
 
-        while ($this->isOperatorTopOfStack($stack)) {
+        while ($this->getOperatorFromTopOfStack($stack)) {
             $output->enqueue($stack->pop());
         }
 
@@ -89,14 +92,17 @@ class Expression
     {
         $stack = [];
         $rpnexp = $this->toRPN();
+        
         if (!$rpnexp) {
             return 0;
         }
+        
         foreach ($rpnexp as $item) {
-            if ($this->operators->isOperator($item)) {
+            $operator = $this->getOperator($item);
+            if ($operator) {
                 $val1 = \array_pop($stack);
                 $val2 = \array_pop($stack);
-                $value = $this->operators->calc($item, $val2, $val1);
+                $value = $operator->calc($val2, $val1);
                 \array_push($stack, $value);
             } else {
                 \array_push($stack, $item);
@@ -108,11 +114,19 @@ class Expression
      * Is the item at the top of the stack an operator
      */
 
-    private function isOperatorTopOfStack(\SplStack $stack)
+    private function getOperatorFromTopOfStack(\SplStack $stack)
     {
-        return
-            (count($stack) > 0) &&
-            ($top = $stack->top()) &&
-            $this->operators->isOperator($top);
+        if(count($stack) > 0){
+            $top = $stack->top();
+            return $this->getOperator($top);
+        }
+    }
+    /*
+     * 
+     */
+
+    private function getOperator(string $key)
+    {
+        return $this->operators[$key] ?? null;
     }
 }

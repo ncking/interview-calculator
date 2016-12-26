@@ -7,6 +7,7 @@ module.exports = {
      */
     calc: function (equation) {
         var d = $.Deferred();
+
         if (request) {
             request.abort();
         }
@@ -14,7 +15,7 @@ module.exports = {
             cache: false,
             data: {equation: equation},
             method: 'GET',
-            url: 'calculator.php',
+            url: window.location.pathname .replace(/\/+$/, '') + '/calculator',
             dataType: 'json'
         }).done(function (response) {
             d.resolve(response);

@@ -6,5 +6,10 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname(dirname($vendorDir));
 
 return array(
+    'Zend\\Diactoros\\' => array($vendorDir . '/zendframework/zend-diactoros/src'),
+    'Slim\\' => array($vendorDir . '/slim/slim/Slim'),
     'Raiz\\' => array($baseDir . '/lib/Raiz'),
+    'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src'),
+    'Interop\\Container\\' => array($vendorDir . '/container-interop/container-interop/src/Interop/Container'),
+    'FastRoute\\' => array($vendorDir . '/nikic/fast-route/src'),
 );

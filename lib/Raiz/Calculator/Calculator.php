@@ -5,7 +5,7 @@
 namespace Raiz\Calculator;
 
 use \Raiz\RPN\{
-    Operators,
+    Operator,
     ExpressionString
 };
 
@@ -15,7 +15,7 @@ use \Raiz\RPN\{
 class Calculator
 {
 
-    private $rpnOperators;
+    private $operators = [];
 
     /*
      * 
@@ -23,7 +23,24 @@ class Calculator
 
     public function __construct()
     {
-        $this->rpnOperators = new Operators;
+        $this->setOperator('+', [Operator::ATTR_CALLBACK => function($i, $j) {
+                    return $i + $j;
+                }])
+            ->setOperator('-', [Operator::ATTR_CALLBACK => function($i, $j) {
+                    return $i - $j;
+                }])
+            ->setOperator('*', [Operator::ATTR_CALLBACK => function($i, $j) {
+                    return $i * $j;
+                }])
+            ->setOperator('%', [Operator::ATTR_CALLBACK => function($i, $j) {
+                    return $i % $j;
+                }])
+            ->setOperator('/', [Operator::ATTR_CALLBACK => function($i, $j) {
+                    return $i / $j;
+                }])
+            ->setOperator('^', [Operator::ATTR_CALLBACK => function($i, $j) {
+                    return $i ** $j;
+                }]);
     }
     /*
      * 
@@ -31,16 +48,19 @@ class Calculator
 
     public function calcExpression(string $str = ''): int
     {
-        $expression = new ExpressionString($str, $this->rpnOperators);
+        $expression = new ExpressionString($str, $this->operators);
         return $expression->calculate();
     }
     /*
      * 
      */
 
-    public function setOperator(string $operator, array $options = [], callable $callback = null): Calculator
+    public function setOperator(string $operator, array $options = []): self
     {
-        $this->rpnOperators->setOperator($operator, $options, $callback);
+        if (empty($this->operators[$operator])) {
+            $this->operators[$operator] = new Operator($operator);
+        };
+        $this->operators[$operator]->setOptions($options);
         return $this;
     }
 }
