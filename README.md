@@ -1,4 +1,4 @@
-# RPN _ Calculator
+# RPN Calculator - interview task
 
 [RPN] Calcultor using the [Shunting-yard_algorithm] , with custom operators;
 You can set the operator symbol, precedence, & operand calculation.
